@@ -1,18 +1,19 @@
 FROM node:20-alpine
 
-# Install essential build tools for native npm modules if needed
-RUN apk add --no-status-safe curl
+# Install essential build tools
+RUN apk add curl
 
 WORKDIR /app
 
-# Install Webstudio CLI globally so it's available for the sync loop
-RUN npm install -g @webstudio-is/cli
+# Pin the Webstudio CLI version
+# renovate: datasource=npm depName=@webstudio-is/cli
+ENV WEBSTUDIO_CLI_VERSION=0.94.0
+RUN npm install -g @webstudio-is/cli@${WEBSTUDIO_CLI_VERSION}
 
 # Create a directory for the synced project
-RUN mkdir -p /app/project
+RUN mkdir -p /app
 
 # Copy a basic package.json that includes Remix and Webstudio dependencies
-# You can also let the CLI generate this during the first sync
 COPY package.json ./
 RUN npm install
 

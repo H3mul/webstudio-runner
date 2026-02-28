@@ -21,6 +21,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Get Webstudio CLI version from Dockerfile
+        id: get_version
+        run: |
+          VERSION=$(grep 'ENV WEBSTUDIO_CLI_VERSION=' Dockerfile | cut -d '=' -f 2)
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
@@ -35,7 +41,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=rolling
-            type=sha,format=short
+            type=raw,value=${{ steps.get_version.outputs.version }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5

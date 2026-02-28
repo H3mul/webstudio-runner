@@ -1,0 +1,34 @@
+{
+  "name": "webstudio-runner",
+  "version": "1.0.0",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "scripts": {
+      "build": "remix build",
+      "dev": "remix dev",
+      "start": "remix-serve build/index.js"
+    },
+    "dependencies": {
+      "@remix-run/react": "^2.17.4",
+      "@remix-run/serve": "^2.17.4",
+      "react": "^18.2.20",
+      "react-dom": "^18.2.20",
+      "react-infinite-scroller": "^1.2.6",
+      "remix": "^2.17.4"
+    },
+    "devDependencies": {
+      "@remix-run/dev": "2.17.4",
+      "@types/react": "^18.2.20",
+      "@types/react-dom": "^18.2.20",
+      "typescript": "^5.9.3"
+    },
+    "overrides": {
+      "@remix-run/dev": {
+        "cacache": "^20.0.3"
+      }
+    },
+    "engines": {
+      "node": ">=18.0.0"
+    }
+  }

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":rebaseStalePrs",
+    ":enablePreCommit"
+  ],
+  "schedule": ["daily"],
+  "packageRules": [
+    {
+      "matchPackageNames": ["@webstudio-is/cli"],
+      "matchManagers": ["dockerfile"],
+      "enabled": true
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["(^|/)Dockerfile$"],
+      "matchStrings": [
+        "#\\s*renovate:\\s*datasource=(?<datasource>[^\\s]+)\\s*depName=(?<depName>[^\\s]+)\\s*(versioning=(?<versioning>[^\\s]+))?\\s*ENV\\s+[A-Z_]+_VERSION=(?<currentValue>[^\\s]+)"
+      ]
+    }
+  ]
+}
